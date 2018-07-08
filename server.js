@@ -3,7 +3,12 @@ const mongoose = require("mongoose");
 const users = require("./routes/api/users");
 const profile = require("./routes/api/profile");
 const posts = require("./routes/api/posts");
+const bodyParser = require("body-parser");
 const app = express();
+
+//Body parser Middle Ware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 //DB Config
 const db = require("./config/keys").mongoURI;
@@ -26,8 +31,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/users", users);
-app.use("/api/users", profile);
-app.use("/api/users", posts);
+app.use("/api/profile", profile);
+app.use("/api/posts", posts);
 
 const port = process.env.PORT || 5000;
 
